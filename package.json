@@ -1,0 +1,29 @@
+{
+  "name": "ntfy-service",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/index",
+    "start": "node src/index"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@nelreina/redis-stream-consumer": "^2.1.6",
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.2",
+    "helmet": "^7.0.0",
+    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
+    "minimist": "^1.2.7",
+    "node-fetch": "^3.3.2",
+    "pino": "^7.11.0",
+    "pino-pretty": "^7.6.1",
+    "redis": "^4.0.6",
+    "uuid": "^9.0.1"
+  }
+}
