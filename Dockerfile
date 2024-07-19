@@ -1,14 +1,24 @@
-FROM node:lts-bullseye-slim
-ENV NODE_ENV=production
-ENV REDIS_URL=redis://172.17.0.1:6379
-RUN apt-get install tzdata
-ENV TZ America/Curacao
-EXPOSE 5050
+# Use an official Node.js runtime as a parent image
+FROM node:21-alpine
 
-RUN mkdir /app && chown -R node:node /app
-WORKDIR /app
-USER node
-COPY --chown=node:node package.json package-lock*.json ./
-RUN npm ci && npm cache clean --force
-COPY --chown=node:node . .
+# Set the working directory in the container
+WORKDIR /usr/src/app
+
+# Install pnpm
+RUN npm install -g pnpm
+
+# Copy package.json and pnpm-lock.yaml (or just `package.json` if no lock file)
+COPY package.json ./
+COPY pnpm-lock.yaml* ./
+
+# Install dependencies using pnpm
+RUN pnpm install --frozen-lockfile
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose the port the app runs on
+# EXPOSE 3000
+
+# Define the command to run the app
 CMD ["node", "src/index.js"]

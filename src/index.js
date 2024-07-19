@@ -6,7 +6,7 @@ import { client } from "./config/redis-client.js";
 import logger from "./config/logger.js";
 import { handler } from "./lib/event-handler.js";
 import { SERVICE } from "./config/constants.js";
-import { sendNotification } from "./lib/notification.js";
+import { sendNotification, sendNotificationMessage } from "./lib/notification.js";
 
 const STREAM = process.env["STREAM"];
 const NOTIFICATION_SERVICE = process.env["NOTIFICATION_SERVICE"];
@@ -45,13 +45,8 @@ try {
       );
       logger.info(msg);
     }
-    const resp = await sendNotification({
-      title: "Notifications Service",
-      topic: "nelreina",
-      message: "Notifications Service is started!",
-    });
-    logger.info(resp);
-
+    
+    logger.info("✅ Successfully started notification event stream service");
     process.on("SIGINT", shutdown);
     process.on("SIGTERM", shutdown);
   } else {
